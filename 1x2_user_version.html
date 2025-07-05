@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คำนวณผลตอบแทน 1X2</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    h2 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>คำนวณผลตอบแทน 1X2</h2>
+
+  <label>ราคาน้ำ 1 (เจ้าบ้านชนะ)</label>
+  <input type="number" step="0.01" id="odd1" placeholder="เช่น 1.90">
+
+  <label>ราคาน้ำ X (เสมอ)</label>
+  <input type="number" step="0.01" id="oddX" placeholder="เช่น 3.20">
+
+  <label>ราคาน้ำ 2 (ทีมเยือนชนะ)</label>
+  <input type="number" step="0.01" id="odd2" placeholder="เช่น 2.50">
+
+  <label>เลือกผลที่คุณเลือกแทง</label>
+  <select id="selection">
+    <option value="1">1 (เจ้าบ้านชนะ)</option>
+    <option value="X">X (เสมอ)</option>
+    <option value="2">2 (ทีมเยือนชนะ)</option>
+  </select>
+
+  <label>จำนวนเงินเดิมพัน (บาท)</label>
+  <input type="number" id="stake" placeholder="เช่น 100">
+
+  <button onclick="calculate()">คำนวณผลตอบแทน</button>
+
+  <h3 id="result">ผลตอบแทนจะปรากฏที่นี่</h3>
+</div>
+
+<script>
+function calculate() {
+  const odd1 = parseFloat(document.getElementById('odd1').value);
+  const oddX = parseFloat(document.getElementById('oddX').value);
+  const odd2 = parseFloat(document.getElementById('odd2').value);
+  const stake = parseFloat(document.getElementById('stake').value);
+  const selection = document.getElementById('selection').value;
+
+  let selectedOdd = 0;
+  if (selection === '1') selectedOdd = odd1;
+  else if (selection === 'X') selectedOdd = oddX;
+  else if (selection === '2') selectedOdd = odd2;
+
+  if (selectedOdd > 0 && stake > 0) {
+    const payout = selectedOdd * stake;
+    const profit = payout - stake;
+    document.getElementById('result').innerHTML = 
+      `ผลตอบแทนรวม: ${payout.toFixed(2)} บาท<br>กำไรสุทธิ: ${profit.toFixed(2)} บาท`;
+  } else {
+    document.getElementById('result').innerText = 'กรุณากรอกข้อมูลให้ครบและถูกต้อง';
+  }
+}
+</script>
+
+</body>
+</html>
